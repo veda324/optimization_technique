@@ -1,0 +1,21 @@
+% Given x values
+x = [580 670 720 890 1200 1602];
+
+% Reference samples
+x1 = 200;  y1 = 420;
+x2 = 250;  y2 = 500;
+
+% Calculate m and c from reference
+m = -1.6
+c = 900
+
+% Predict y values
+y = m*x + c;
+disp(y)
+% Plot the linear equation
+figure
+plot(x, y, 'bo-', 'LineWidth', 2)
+grid on
+xlabel('x')
+ylabel('y')
+title('Linear Prediction using Reference Samples')
