@@ -1,0 +1,60 @@
+clc;
+clear;
+
+% Define symbolic variable
+syms p
+
+% Demand function
+Q = 20000 - 10000*p;
+
+% Revenue function
+R = p * Q;
+
+% Cost function
+C = 2000 + 0.5 * Q;
+
+% Profit function
+Profit = R - C;
+
+% Differentiate profit function
+dProfit = diff(Profit, p);
+
+% Find optimal price
+optimal_price = solve(dProfit == 0, p);
+
+% Quantity sold at optimal price
+optimal_quantity = subs(Q, p, optimal_price);
+
+% Maximum profit
+maximum_profit = subs(Profit, p, optimal_price);
+
+% Display results
+fprintf('Optimal Price per item = Rs %.2f\n', optimal_price);
+fprintf('Number of items sold = %.0f\n', optimal_quantity);
+fprintf('Maximum Profit = Rs %.2f\n', maximum_profit);
+
+% ---------------- GRAPH SECTION ---------------- %
+
+% Convert symbolic profit to numeric function
+profit_fun = matlabFunction(Profit);
+
+% Define price range
+price_values = linspace(0, 2, 100);
+
+% Compute profit values
+profit_values = profit_fun(price_values);
+
+% Plot Profit vs Price
+figure;
+plot(price_values, profit_values, 'LineWidth', 2);
+grid on;
+
+% Mark maximum profit point
+hold on;
+plot(double(optimal_price), double(maximum_profit), 'ro', 'MarkerSize', 8, 'LineWidth', 2);
+hold off;
+
+xlabel('Price per item (Rs)');
+ylabel('Profit (Rs)');
+title('Profit vs Price Curve');
+legend('Profit Curve', 'Maximum Profit Point');
