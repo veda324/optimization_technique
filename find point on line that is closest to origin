@@ -1,0 +1,31 @@
+clc;
+clear;
+close all;
+
+syms x y   %  declare both x and y
+
+y = 2*x + 3;
+
+D = x^2 + y^2;      % now y is known
+D = expand(D);
+
+dDdx = diff(D, x);
+
+x_min = solve(dDdx == 0, x);
+y_min = subs(y, x, x_min);
+
+disp('Distance closest point:')
+disp(['x = ', char(x_min)])
+disp(['y = ', char(y_min)])
+
+fplot(y, [-10 10], 'r', 'LineWidth', 2);  
+hold on;
+
+plot(double(x_min), double(y_min), 'bo', 'MarkerSize', 10);
+
+xlabel('x');
+ylabel('y');
+title('Line and closest point to origin -')
+grid on
+hold off;
+
