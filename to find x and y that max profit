@@ -1,0 +1,35 @@
+clc;
+clear;
+
+syms x y
+
+% Profit function
+P = 40*x + 50*y - (x^2 + y^2 + x*y);
+
+% First partial derivatives
+Px = diff(P, x);
+Py = diff(P, y);
+
+% Solve for critical points
+[solx, soly] = solve(Px == 0, Py == 0, x, y);
+
+% Display results
+disp('Optimal production levels:');
+disp(['x (Product A) = ', char(solx)]);
+disp(['y (Product B) = ', char(soly)]);
+
+% Second derivative test
+Pxx = diff(Px, x);
+Pyy = diff(Py, y);
+Pxy = diff(Px, y);
+
+D = Pxx*Pyy - Pxy^2;
+
+disp('Second derivative determinant:');
+disp(D);
+
+% Profit at maximum point
+Pmax = subs(P, [x y], [solx soly]);
+disp('Maximum Profit:');
+disp(Pmax);
+disp('Teja Sreya-345')
